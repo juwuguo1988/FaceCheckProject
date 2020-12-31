@@ -17,5 +17,14 @@
             android:layout_height="match_parent"
             android:background="@color/main_text_color_edit" />
 
+        <ImageButton
+            android:id="@+id/btnCallBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="20dp"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/icon_again"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
