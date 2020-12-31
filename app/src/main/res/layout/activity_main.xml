@@ -2,20 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/camera_colorBg">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
         <Button
-            android:id="@+id/detect"
+            android:id="@+id/fontDetect"
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:background="#99ff88"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="点击进入"
-            android:textSize="20dp"
-            android:topRightRadius="20dp"
+            android:bottomLeftRadius="20dp"
             android:bottomRightRadius="20dp"
-            android:bottomLeftRadius="20dp"/>
+            android:text="前置进入"
+            android:textSize="20dp"
+            android:topRightRadius="20dp" />
 
+        <Button
+            android:id="@+id/backDetect"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:background="#99ff88"
+            android:bottomLeftRadius="20dp"
+            android:bottomRightRadius="20dp"
+            android:text="后置进入"
+            android:textSize="20dp"
+            android:topRightRadius="20dp" />
+    </LinearLayout>
 </RelativeLayout>

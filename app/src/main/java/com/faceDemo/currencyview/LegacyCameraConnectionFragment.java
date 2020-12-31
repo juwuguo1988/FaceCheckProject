@@ -51,7 +51,7 @@ public class LegacyCameraConnectionFragment extends Fragment {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
-    private Camera camera;
+    public Camera camera;
     private Camera.PreviewCallback imageListener;
     private Size desiredSize;
     private int layout;
@@ -193,8 +193,7 @@ public class LegacyCameraConnectionFragment extends Fragment {
             Camera.getCameraInfo(i, ci);
             if (CameraActivity.is_front_camera) {
                 if (ci.facing == CameraInfo.CAMERA_FACING_FRONT) return i;
-            }
-            else {
+            } else {
                 if (ci.facing == CameraInfo.CAMERA_FACING_BACK) return i;
             }
         }

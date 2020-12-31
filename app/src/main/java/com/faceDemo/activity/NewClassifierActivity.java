@@ -32,6 +32,7 @@ import java.util.List;
 public class NewClassifierActivity extends CameraActivity {
 
     private static final String TAG = "ClassifierActivity";
+    public static final String CAMERA_FONT_FLAG = "CAMERA_FONT_FLAG";
     private List<FaceLandmarkInfo> mLandmarkInfos;
     private OverlayView trackingOverlay;
     private final Paint circlePaint = new Paint();
@@ -39,17 +40,9 @@ public class NewClassifierActivity extends CameraActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        findViewById();
+        boolean flag = getIntent().getBooleanExtra(NewClassifierActivity.CAMERA_FONT_FLAG, false);
+        is_front_camera = flag;
     }
-
-
-    private void findViewById(){
-        Button btnSaveSkip = findViewById(R.id.btnSaveSkip);
-        btnSaveSkip.setOnClickListener(v -> {
-
-        });
-    }
-
 
     @Override
     protected int getLayoutId() {
@@ -66,6 +59,7 @@ public class NewClassifierActivity extends CameraActivity {
     }
 
     public void Registe() {
+        KitCore.Camera.switchCamera(!is_front_camera);
         /**
          * canvas 绘制人脸框，人脸关键点
          * */

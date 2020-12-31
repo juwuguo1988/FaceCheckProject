@@ -34,7 +34,7 @@ import com.tenginekit.AndroidConfig;
 import com.tenginekit.KitCore;
 
 public abstract class CameraActivity extends AppCompatActivity implements
-        Camera.PreviewCallback{
+        Camera.PreviewCallback {
     private static final String TAG = "CameraActicity";
 
     // 照相机预览宽
@@ -61,6 +61,7 @@ public abstract class CameraActivity extends AppCompatActivity implements
 
     private Runnable postInferenceCallback;
     private Runnable imageConverter;
+    private LegacyCameraConnectionFragment mCurrentFragment;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -167,13 +168,18 @@ public abstract class CameraActivity extends AppCompatActivity implements
          * 释放
          * */
         KitCore.release();
+        if (mCurrentFragment.camera != null) {
+            mCurrentFragment.camera.stopPreview();//停掉原来摄像头的预览
+            mCurrentFragment.camera.release();//释放资源
+            mCurrentFragment.camera = null;//取消原来摄像头
+        }
     }
 
 
     protected void setFragment() {
-        LegacyCameraConnectionFragment fragment = new LegacyCameraConnectionFragment(this, getLayoutId(), getDesiredPreviewFrameSize());
-        CameraId = fragment.getCameraId();
-        getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+        mCurrentFragment = new LegacyCameraConnectionFragment(this, getLayoutId(), getDesiredPreviewFrameSize());
+        CameraId = mCurrentFragment.getCameraId();
+        getFragmentManager().beginTransaction().replace(R.id.container, mCurrentFragment).commit();
     }
 
     protected void readyForNextImage() {

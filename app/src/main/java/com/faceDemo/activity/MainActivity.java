@@ -16,36 +16,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static String TAG = "MainActivity";
     private ImageView mEffectVideo;
+    private boolean isCameraFlag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        findViewById(R.id.detect).setOnClickListener(this);
+        findViewById(R.id.fontDetect).setOnClickListener(this);
+        findViewById(R.id.backDetect).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.detect:
-                startVideoWithFaceDetected();
+            case R.id.fontDetect:
+                isCameraFlag = true;
+                startVideoWithFaceDetected(true);
+                break;
+            case R.id.backDetect:
+                isCameraFlag = false;
+                startVideoWithFaceDetected(false);
                 break;
         }
     }
 
-    private void startVideoWithFaceDetected() {
+    private void startVideoWithFaceDetected(boolean flag) {
         PermissionUtils.checkPermission(this, new Runnable() {
             @Override
             public void run() {
-                jumpToCameraActivity();
+                jumpToCameraActivity(flag);
             }
         });
     }
 
-    public void jumpToCameraActivity()
+    public void jumpToCameraActivity(boolean flag)
     {
         Intent intent = new Intent(MainActivity.this, NewClassifierActivity.class);
+        intent.putExtra(NewClassifierActivity.CAMERA_FONT_FLAG,flag);
         startActivity(intent);
     }
 
@@ -55,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                jumpToCameraActivity();
+                jumpToCameraActivity(isCameraFlag);
             } else {
-                startVideoWithFaceDetected();
+                startVideoWithFaceDetected(isCameraFlag);
             }
         }
     }
